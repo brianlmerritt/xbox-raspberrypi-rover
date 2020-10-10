@@ -33,3 +33,6 @@ You'll need to install these packages to enable the sound effects in the code ba
   `git clone https://github.com/erviveksoni/xbox-raspberrypi-rover.git`
 * `cd xbox_controller_adeept_rover`
 * Run `sudo python3 drive_rover.py`
+* Note this version doesn't error out if the Xbox One controller is not connected so you can create / amend the startup.sh file to run `sudo python3 drive_rover.py` on startup and it just waits for the controller to connect
+
+## Todo - add the picar-b code so that the video camera streams to a remote computer

@@ -107,7 +107,7 @@ def is_connected(): # asyncronus read-out of events
         if str.lower(device.name) == 'xbox wireless controller':
             path = str(device.path)
     if(path == None):
-        print('Xbox controller disconnected!!')
+        # print('Xbox controller disconnected!!')
         return False
     return True
 
@@ -144,6 +144,9 @@ async def read_gamepad_inputs():
     print("Ready to drive!!")
     turn_sound = SoundPlayer("/home/pi/xbox-raspberrypi-rover/soundfiles/turn-signal.mp3", card)
     horn_sound = SoundPlayer("/home/pi/xbox-raspberrypi-rover/soundfiles/Horn.mp3", card)        
+
+    while not is_connected():
+        time.sleep(2) # Wait 2 seconds for controller to come up and try again
 
     while is_connected() and remote_control.button_b == False:
         #print(" trigger_right = ", round(remote_control.trigger_right,2),end="\r")
