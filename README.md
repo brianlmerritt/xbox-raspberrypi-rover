@@ -35,4 +35,10 @@ You'll need to install these packages to enable the sound effects in the code ba
 * Run `sudo python3 drive_rover.py`
 * Note this version doesn't error out if the Xbox One controller is not connected so you can create / amend the startup.sh file to run `sudo python3 drive_rover.py` on startup and it just waits for the controller to connect
 
-## Todo - add the picar-b code so that the video camera streams to a remote computer
+## Todo!
+
+* add the picar-b code so that the video camera streams to a remote computer
+* change the driving controls - it's a bit hard to maintain forward speed around corners
+* add camera pan and tilt on the other controller joystick
+* connect camera output and controls to remote computer or store on stick for input to deep learning
+* setup autonomous mode
