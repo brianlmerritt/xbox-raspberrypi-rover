@@ -237,11 +237,14 @@ if __name__ == "__main__":
         siren_sound = SoundPlayer("/home/pi/xbox-raspberrypi-rover/soundfiles/siren.mp3", card)
 
         setup()
-        remote_control = connect()
-        if(remote_control == None):
-            print('Please connect an Xbox controller then restart the program!')
-            sys.exit()        
         
+        waiting_for_connect = True
+        while waiting_for_connect:
+            remote_control = connect()
+            if(remote_control != None):
+                waiting_for_connect = False      
+            time.sleep(2)
+            
         init_sound.play(1.0)
 
         strip = led_strip.setup_led()
