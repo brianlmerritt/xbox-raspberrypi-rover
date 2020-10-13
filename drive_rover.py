@@ -146,7 +146,7 @@ async def read_gamepad_inputs():
     horn_sound = SoundPlayer("/home/pi/xbox-raspberrypi-rover/soundfiles/Horn.mp3", card)        
 
     while not is_connected():
-        time.sleep(2) # Wait 2 seconds for controller to come up and try again
+        await asyncio.sleep(2) # Wait 2 seconds for controller to come up and try again
 
     while is_connected() and remote_control.button_b == False:
         #print(" trigger_right = ", round(remote_control.trigger_right,2),end="\r")
@@ -158,6 +158,7 @@ async def read_gamepad_inputs():
         #print("x:", x, " y:", y, " angle: ",angle,end="\r")
         turn_head(angle)
         direction = get_motor_direction(x,y)
+        y = adjust_speed(y,angle)
         #print("x:", x, " y:", y, " direction: ",direction,end="\r")
         drive_motor(direction,y)
 
@@ -219,6 +220,15 @@ def get_usb_sound_card():
         card = int(result)
     return card
 
+# New code to increase speed when going around a corner
+
+def adjust_speed(speed, angle):
+    print("angle:", angle, " speed:", speed, "\r")
+    if abs(angle-90) > 20: # I think 90 angle is straight ahead
+        speed += 20
+    print("angle:", angle, " adjusted speed:", speed, "\r")
+    return speed
+
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     card = 1 #(default)
@@ -243,7 +253,7 @@ if __name__ == "__main__":
             remote_control = connect()
             if(remote_control != None):
                 waiting_for_connect = False      
-            time.sleep(2)
+            await asyncio.sleep(2)
             
         init_sound.play(1.0)
 
