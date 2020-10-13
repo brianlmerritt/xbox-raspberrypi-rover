@@ -146,7 +146,7 @@ async def read_gamepad_inputs():
     horn_sound = SoundPlayer("/home/pi/xbox-raspberrypi-rover/soundfiles/Horn.mp3", card)        
 
     while not is_connected():
-        await asyncio.sleep(2) # Wait 2 seconds for controller to come up and try again
+        time.sleep(2) # Wait 2 seconds for controller to come up and try again
 
     while is_connected() and remote_control.button_b == False:
         #print(" trigger_right = ", round(remote_control.trigger_right,2),end="\r")
@@ -253,7 +253,7 @@ if __name__ == "__main__":
             remote_control = connect()
             if(remote_control != None):
                 waiting_for_connect = False      
-            await asyncio.sleep(2)
+            time.sleep(2)
             
         init_sound.play(1.0)
 
